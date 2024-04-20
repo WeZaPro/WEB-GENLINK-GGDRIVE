@@ -1,10 +1,14 @@
 <template>
-  <h3>{{ msg }}</h3>
-  <v-sheet class="mx-auto" max-width="600">
+  <div class="mt-10">
+    <h5>{{ msg }}</h5>
+  </div>
+
+  <v-sheet class="mx-auto mt-20" max-width="600">
     <v-form validate-on="submit lazy" @submit.prevent="submit">
       <v-text-field
         v-model="getGoogleLink"
         :rules="rules"
+        bg-color="#FFF3E0"
         label="GOOGLE LINK"
       ></v-text-field>
 
@@ -12,6 +16,7 @@
         :loading="loading"
         class="mt-2"
         text="GENERATE LINK"
+        color="#F44336"
         type="submit"
         block
       ></v-btn>
@@ -20,6 +25,7 @@
         class="mt-10"
         v-model="results"
         :rules="rules"
+        bg-color="#E3F2FD"
         label="PREVIEW IMAGE URL"
       ></v-text-field>
       <div>
@@ -34,6 +40,7 @@
           :loading="loading"
           class="mt-2"
           text="PREVIEW IMAGE URL"
+          color="#2196F3"
           block
           @click="getImage"
         ></v-btn>

@@ -12,8 +12,8 @@ import HelloWorld from "./components/HelloWorld.vue";
     </a>
   </div> -->
   <div class="text-center">
-    <HelloWorld msg="Vite + Vue" />
-    <GENLINK msg="GEN LINK GOOGLE DRIVE" />
+    <HelloWorld msg="APP GENERATE LINK FROM GOOGLE DRIVE" />
+    <GENLINK msg="สำหรับการเอา Link Image ที่ Save บน Google Drive ไปใช้ได้" />
     <Sample />
   </div>
 </template>
