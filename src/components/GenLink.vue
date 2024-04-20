@@ -9,7 +9,7 @@
         v-model="getGoogleLink"
         :rules="rules"
         bg-color="#FFF3E0"
-        label="GOOGLE LINK"
+        label="LINK FROM GOOGLE DRIVE SHARING"
       ></v-text-field>
 
       <v-btn
@@ -27,15 +27,9 @@
         :rules="rules"
         bg-color="#E3F2FD"
         label="PREVIEW IMAGE URL"
+        :disabled="disabled == 1"
       ></v-text-field>
       <div>
-        <v-img
-          class="mt-5"
-          :width="600"
-          aspect-ratio="9/9"
-          cover
-          :src="previewImage"
-        ></v-img>
         <v-btn
           :loading="loading"
           class="mt-2"
@@ -44,6 +38,13 @@
           block
           @click="getImage"
         ></v-btn>
+        <v-img
+          class="mt-5"
+          :width="600"
+          aspect-ratio="9/9"
+          cover
+          :src="previewImage"
+        ></v-img>
       </div>
     </v-form>
   </v-sheet>
@@ -54,6 +55,7 @@ export default {
     msg: String,
   },
   data: (vm) => ({
+    disabled: 0,
     loading: false,
     rules: [(value) => vm.checkApi(value)],
     timeout: null,
@@ -70,20 +72,25 @@ export default {
     async submit(event) {
       console.log("event---> ", event);
       console.log("getGoogleLink---> ", this.getGoogleLink);
-      // sample
-      // https://drive.google.com/file/d/1mDsxLfKeTLAnioe4rVzjue2z0Ap9lDu9/view?usp=sharing
-      let message = this.getGoogleLink;
-      let arr = message.split("/");
+      if (this.getGoogleLink) {
+        // sample
+        // https://drive.google.com/file/d/1mDsxLfKeTLAnioe4rVzjue2z0Ap9lDu9/view?usp=sharing
+        let message = this.getGoogleLink;
+        let arr = message.split("/");
 
-      console.log("arr---> ", arr);
-
-      const idImage = arr[5];
-      this.results = `https://drive.google.com/thumbnail?sz=w1000&id=${idImage}`;
-      this.loading = true;
-
-      const results = await event;
-
-      this.loading = false;
+        console.log("arr---> ", arr.length);
+        if (arr.length !== 7) {
+          alert("Link ไม่ถูกต้อง");
+        } else {
+          const idImage = arr[5];
+          this.results = `https://drive.google.com/thumbnail?sz=w1000&id=${idImage}`;
+          this.loading = true;
+          const results = await event;
+          this.loading = false;
+        }
+      } else {
+        alert("Please input link");
+      }
 
       //   alert(JSON.stringify(results, null, 2));
     },
