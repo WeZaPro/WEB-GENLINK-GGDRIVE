@@ -14,16 +14,19 @@ import HelloWorld from "./components/HelloWorld.vue";
   <div class="text-center">
     <HelloWorld msg="Vite + Vue" />
     <GENLINK msg="GEN LINK GOOGLE DRIVE" />
+    <Sample />
   </div>
 </template>
 
 <script>
 import GENLINK from "./components/GenLink.vue";
 import HelloWorld from "./components/HelloWorld.vue";
+import Sample from "./components/SAMPLE.vue";
 export default {
   components: {
     GENLINK,
     HelloWorld,
+    Sample,
   },
   data() {
     return {};
