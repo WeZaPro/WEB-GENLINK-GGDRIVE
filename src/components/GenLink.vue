@@ -27,9 +27,17 @@
         :rules="rules"
         bg-color="#E3F2FD"
         label="PREVIEW IMAGE URL"
-        :disabled="disabled == 1"
+        :disabled="true"
       ></v-text-field>
       <div>
+        <v-btn
+          :loading="loading"
+          class="mt-2"
+          text="COPY LINK TO CLIPBOARD"
+          color="#9C27B0"
+          block
+          @click="copyURL"
+        ></v-btn>
         <v-btn
           :loading="loading"
           class="mt-2"
@@ -55,7 +63,7 @@ export default {
     msg: String,
   },
   data: (vm) => ({
-    disabled: 0,
+    disableCheck: false,
     loading: false,
     rules: [(value) => vm.checkApi(value)],
     timeout: null,
@@ -65,6 +73,20 @@ export default {
   }),
 
   methods: {
+    async copyURL() {
+      console.log("results--> ", this.results);
+
+      if (!this.results) {
+        alert("ไม่มีข้อมูล!");
+      } else {
+        try {
+          await navigator.clipboard.writeText(this.results);
+          alert("Copied link to clipboard !!! ");
+        } catch ($e) {
+          alert("Cannot copy");
+        }
+      }
+    },
     getImage() {
       this.previewImage = this.results;
       console.log(" this.previewImage ---> ", this.previewImage);
